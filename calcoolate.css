@@ -1,0 +1,11 @@
+body { margin:5px; }
+body,td,input { font-family:verdana,arial,sans-serif; color:#333333; font-size:9pt; }
+.logotext  { font-family:verdana,arial,sans-serif; color:#333333; font-size:8pt; font-style:italic; font-weight:bold}
+h1 { font-size:14pt; font-weight:bold; color:#3366ff}
+h2 { font-size:12pt; font-weight:bold; }
+
+td#menu {color:#808080; }
+td#menu a:link, td#menu a:active, td#menu a:visited { font-size: 9pt; font-weight: bold; color:#333333; padding:2px; }
+td#menu a:hover { background-color:#3366ff; color:#ffffff }
+
+.footer { color:#808080; font-size:8pt }

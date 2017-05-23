@@ -1,0 +1,435 @@
+<html class="gr__web_archive_org">
+<head>
+    <title>calcoolate.com: The Coolest Online Calculator</title>
+    <meta name="description" content="web based online cool calculator unit conversion financial currency conversion">
+    <meta name="keywords" content="web based online cool calculator unit conversion financial currency">
+    <link href="calcoolate.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <style>
+        .exp {
+            font-size: 12pt;
+            font-family: monospace;
+            font-weight: bold;
+            background-color: #f0f0ff;
+            border: 1px solid black
+        }
+
+        .expsz {
+            font-size: 12pt;
+            font-family: monospace;
+            font-weight: bold
+        }
+
+        .errmsg {
+            font-size: 10pt;
+            font-family: verdana, arial, sans-serif;
+            font-weight: bold;
+            color: white;
+            background-color: red
+        }
+
+        .logtitle {
+            font-size: 13pt;
+            font-weight: bold;
+        }
+
+        .loghdr {
+            font-size: 12pt;
+            background-color: #fef6f4
+        }
+
+        .logval:link {
+            color: black;
+            text-decoration: none
+        }
+
+        .logval:visited {
+            color: black;
+            text-decoration: none
+        }
+
+        .logval:active {
+            color: black;
+            text-decoration: none
+        }
+
+        .logval:hover {
+            text-decoration: underline;
+            color: blue;
+        }
+
+        .qhexpl {
+            color: #008000;
+        }
+    </style>
+    <script type="text/javascript" src="preferences.js"></script>
+    <script type="text/javascript" src="cookies.js"></script>
+    <script type="text/javascript" src="calc.js"></script>
+    <script type="text/javascript">
+        function quickHelp(show) {
+            var qh = document.getElementById('quickhelp')
+            qh.style.visibility = show ? 'visible' : 'hidden'
+
+        }
+        function setAngleUnits() {
+            document.getElementById('angrad').checked = (prefs.angle == 'rad')
+            document.getElementById('angdeg').checked = (prefs.angle != 'rad')
+        }
+        function saveAngleUnits(value) {
+            prefs.angle = value
+            savePreferencesCookie()
+        }
+    </script>
+</head>
+<body onload="expFocus();expset();loadPreferences();readHistory();setAngleUnits()" data-gr-c-s-loaded="true">
+
+<div id="usage" style="position:absolute;display:block;visibility:hidden;">
+    Online calculator is great for financial calculations. Be it stock values, stock option values,
+    or account management. In addition to finaccial calculations, we offer unit conversion, in particular
+    currency rates conversion. This site is where you can do your financial calculations, models and evaluations.
+</div>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+    <tr valign="bottom">
+        <td><a href="index.html" title="www.calcoolate.com"><img
+                src="/img/logo.png" width="230" height="33"
+                border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td></td>
+        <td align="right" width="90%">
+            <a href="index.html"><img src="/img/ico32.png" width="32"
+                                      height="32" border="0"></a>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td nowrap="true" class="logotext">The coolest calculator on the web</td>
+        <td id="menu" nowrap="true">
+            <a href="index.html" title="The coolest online canlculator">Calculate</a> |
+            <a href="convert.html" title="Convert any unit to almost any other unit">Convert</a> |
+            <a href="about.html" title="Our philosophy and goals">About us</a> |
+            <a href="contact.html" title="Send us questions, report problems, or write comments and ideas">Contact
+                us</a> |
+            <a href="preferences.html" title="Set your personal Calcoolator preferences">Preferences</a>
+        </td>
+    </tr>
+    <tr height="3">
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<table border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+    <tr valign="top">
+        <td width="90%">
+            <!-- Start main area -->
+
+            <h1>Calculator</h1>
+
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr valign="top">
+                    <td><img src="/img/s.png" width="1" height="70"></td>
+                    <td>
+                        <input type="text" id="exp" class="exp" onkeyup="return onkey(event)" style="width:296px"><br>
+                        <div id="errors"><font color="#0b3bd9"><b>Try it: type an expression like
+                            10*(3+4)=</b></font><br></div>
+                        <div id="nesting"></div>
+                        <br><span id="charws" class="expsz"></span><span id="charwe">&nbsp;</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table border="0" cellpadding="1" cellspacing="0">
+                <tbody>
+                <tr valign="top">
+                    <td>
+                        <table border="0" cellpadding="1" cellspacing="0">
+                            <tbody>
+                            <tr valign="top">
+                                <td>
+                                    <a href="javascript:btn('clear')" title="Clear expression"><img
+                                            src="/img/btn_clear.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('sqrt')" title="Square root"><img
+                                            src="/img/btn_sqrt.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('log')" title="Log of a base e (natural log)"><img
+                                            src="/img/btn_log.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('log10')" title="Log of a base 10"><img
+                                            src="/img/btn_log10.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('hex')" title="Convert to base 16 (hexadecimal)"><img
+                                            src="/img/btn_hex.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="#" onmouseover="quickHelp(true)" onmouseout="quickHelp(false)"
+                                       title=""><img
+                                            src="/img/btn_help.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    <a href="javascript:btn('sin')" title="Sine"><img
+                                            src="/img/btn_sin.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('cos')" title="Cosine"><img
+                                            src="/img/btn_cos.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('tan')" title="Tangent"><img
+                                            src="/img/btn_tan.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('asin')" title="Arc sine"><img
+                                            src="/img/btn_asin.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('acos')" title="Arc cosine"><img
+                                            src="/img/btn_acos.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:btn('atan')" title="Arc tangent"><img
+                                            src="/img/btn_atan.png"
+                                            border="0" width="47" height="24"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <input type="radio" id="angrad" name="angle" value="rad"
+                               onclick="saveAngleUnits('rad');expFocus()">Radians<br>
+                        <input type="radio" id="angdeg" name="angle" value="deg"
+                               onclick="saveAngleUnits('deg');expFocus()">Degrees<br>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div id="nameitf" style="position:absolute;display:none">
+                <table bgcolor="#e0e0e0" style="border:1px solid black">
+                    <tbody>
+                    <tr>
+                        <td>Give value a name and use it in expressions</td>
+                    </tr>
+                    <tr>
+                        <td><i>Example: name a value G, and write an expression G*5</i></td>
+                        <td></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Name:<input type="text" value="" id="nameit"
+                                        onkeydown="if (event.keyCode == 13) {nameitset();document.getElementById('nameitf').style.display='none'}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="button" value="OK"
+                                   onclick="nameitset();document.getElementById('nameitf').style.display='none'">
+                            <input type="button" value="Cancel"
+                                   onclick="document.getElementById('nameitf').style.display='none'">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="quickhelp" style="position:absolute;display:block;visibility:hidden;">
+                <table border="0" bgcolor="#333333" cellpadding="3" cellspacing="1">
+                    <tbody>
+                    <tr>
+                        <td bgcolor="#ffeecc">
+
+                            <b>Just type an expression and click &lt;enter&gt; to evaluate</b>
+                            <br>
+                            <i>Example: 12*(20-3)</i>
+                            <br><br>
+                            <table border="0">
+                                <tbody>
+                                <tr valign="top">
+                                    <td>
+                                        <i>Numbers</i><br>
+                                        123<br>
+                                        123.45<br>
+                                        12e-2<br>
+                                        0x1f2 <span class="qhexpl">(hex)</span><br>
+                                        0b0100 <span class="qhexpl">(binary)</span><br>
+                                    </td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>
+                                        <i>Operators</i><br>
+                                        + - * /<br>
+                                        ^ <span class="qhexpl">(power, e.g. 2^3)</span><br>
+                                        % <span class="qhexpl">(percent, e.g. 10%*250)</span><br>
+                                        ! <span class="qhexpl">(factorial, e.g. 3! is 1*2*3)</span><br>
+                                    </td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>
+                                        <i>Constants</i><br>
+                                        pi<br>
+                                        e<br>
+                                    </td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>
+                                        <i>Functions</i><br>
+                                        <table border="0">
+                                            <tbody>
+                                            <tr valign="top">
+                                                <td>sqrt(<i>n</i>)</td>
+                                                <td class="qhexpl">Square root</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">log(<i>n</i>)</td>
+                                                <td class="qhexpl">Natural logarithm (base <i>e</i>) of a number</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">log10(<i>n</i>)</td>
+                                                <td class="qhexpl">Base 10 logarithm of a number</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">hex(<i>n</i>)</td>
+                                                <td class="qhexpl">Base 16 (hexadecimal)</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">bin(<i>n</i>)</td>
+                                                <td class="qhexpl">Base 2 (binary)</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">ceil(<i>n</i>)</td>
+                                                <td class="qhexpl">Round upwards to the nearest integer</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">floor(<i>n</i>)</td>
+                                                <td class="qhexpl">Round downwards to the nearest integer</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">round(<i>n</i>)</td>
+                                                <td class="qhexpl">round to the nearest integer</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">abs(<i>n</i>)</td>
+                                                <td class="qhexpl">Absolute value</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">sin(<i>n</i>)</td>
+                                                <td class="qhexpl">Sine (sinus)</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">cos(<i>n</i>)</td>
+                                                <td class="qhexpl">Cosine (cosinus)</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">tan(<i>n</i>)</td>
+                                                <td class="qhexpl">Tangent</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">asin(<i>n</i>)</td>
+                                                <td class="qhexpl">Arc sine</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">acos(<i>n</i>)</td>
+                                                <td class="qhexpl">Arc cosine</td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="true">atan(<i>n</i>)</td>
+                                                <td class="qhexpl">Arc tangent</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <br>
+            <br>
+            <div id="log"><span class="logtitle">History</span><br><a href="javascript:logRemove()">Remove checked
+                lines</a>&nbsp;&nbsp;<a href="javascript:logCheckAll()">Check all</a>&nbsp;&nbsp;<a
+                    href="javascript:logClear()">Clear history</a>&nbsp;&nbsp;<a href="javascript:copyLogToClipoard()"
+                                                                                 title="Copy all history into the clipboard in a spreadsheet format">Copy
+                all history</a><br><br>
+                <table border="0" cellpadding="2" cellspacing="1" bgcolor="#c0c0c0">
+                    <tbody>
+                    <tr class="loghdr">
+                        <td>&nbsp;</td>
+                        <td>Expression</td>
+                        <td>Result</td>
+                        <td>Name</td>
+                    </tr>
+                    <tr bgcolor="#ffffff">
+                        <td><input type="checkbox" id="log0"></td>
+                        <td><a class="logval" title="Copy to calculator" href='javascript:logSet("123+23")'>123+23</a>
+                        </td>
+                        <td><a class="logval" title="Copy to calculator" href='javascript:logSet("146")'>146</a></td>
+                        <td id="nameit0"><a href="javascript:nameit(0)" title="Define a name for this value">name it</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a href="javascript:logRemove()">Remove checked lines</a>&nbsp;&nbsp;<a href="javascript:logCheckAll()">Check
+                    all</a>&nbsp;&nbsp;<a href="javascript:logClear()">Clear history</a>&nbsp;&nbsp;<a
+                        href="javascript:copyLogToClipoard()"
+                        title="Copy all history into the clipboard in a spreadsheet format">Copy all history</a><br><br>
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <!-- End main area -->
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="footer">
+    <tbody>
+    <tr align="center">
+        <td class="footer">
+            <a href="index.html">Calculate</a> |
+            <a href="convert.html">Convert</a> |
+            <a href="about.html">About us</a> |
+            <a href="contact.html">Contact us</a> |
+            <a href="preferences.html">Preferences</a>
+        </td>
+    </tr>
+    <tr align="center">
+        <td class="footer">
+            Copyright © 2007. All rights reserverd.
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

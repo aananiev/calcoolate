@@ -1,0 +1,139 @@
+
+<html>
+<head>
+    <title>calcoolate.com: The Coolest Online Calculator</title>
+    <meta name="description" content="web based online cool calculator unit conversion financial currency conversion" />
+    <meta name="keywords" content="web based online cool calculator unit conversion financial currency" />
+    <link href="calcoolate.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        .tip { color:#666666; font-style:italic;}
+        .ac_normal   { background-color:#e0ecff}
+        .ac_border   { border-color:black; background-color:#e0ecff; border-collapse:collapse }
+        .ac_selected { background-color:#c3d9ff}
+        .catb        {background-color:#f7f7f7; width:64pt; text-align:center; border:2px outset; color:#333333; text-decoration: none; font-size:8pt}
+        .catb_active {background-color:#c3d9ff; width:64pt; text-align:center; border:2px inset;  color:#333333; text-decoration: none; font-size:8pt; font-weight:bold; }
+        a.catbtn { font-size:8pt; text-decoration:none; color:#333333 }
+        .result {font-weight:bold; background-color:#ffdba4; color:black }
+        .logtitle { font-size:13pt; font-weight:bold;}
+        .loghdr { font-size:12pt; background-color:#fef6f4}
+        .logval:link {color:black; text-decoration: none}
+        .logval:visited {color:black; text-decoration: none}
+        .logval:active {color:black; text-decoration: none}
+        .logval:hover {text-decoration: underline; color:blue;}
+    </style>
+    <script type="text/javascript">
+        var currencyTab
+    </script>
+    <script type="text/javascript" src="autocomplete.js"></script>
+    <script type="text/javascript" src="preferences.js"></script>
+    <script type="text/javascript" src="cookies.js"></script>
+    <script type="text/javascript" src="currencies.js"></script>
+    <script type="text/javascript" src="convert.js"></script>
+</head>
+<body onload="amountFocus();loadPreferences();readConvertHistory()">
+
+<div id="usage" style="position:absolute;display:block;visibility:hidden;" >
+    Online calculator is great for financial calculations. Be it stock values, stock option values,
+    or account management. In addition to finaccial calculations, we offer unit conversion, in particular
+    currency rates conversion. This site is where you can do your financial calculations, models and evaluations.
+</div>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr valign="bottom">
+        <td><a href="index.html" title="www.calcoolate.com"><img src="img/logo.png" width="230" height="33" border="0"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td></td>
+        <td align="right" width="90%"><a href="index.html"><img src="img/ico32.png" width="32" height="32" border="0" /></a>&nbsp;</td>
+    </tr>
+    <td nowrap="true" class="logotext">The coolest calculator on the web</td>
+    <td id="menu" nowrap="true">
+        <a href="index.html" title="The coolest online calculator">Calculate</a> |
+        <a href="convert.html" title="Convert any unit to almost any other unit">Convert</a> |
+        <a href="about.html" title="Our philosophy, ideas and goals">About us</a> |
+        <a href="contact.html" title="Send us questions, report problems, or write comments and ideas">Contact us</a> |
+        <a href="download.html" title="Software for download">Download</a> |
+        <a href="preferences.html" title="Set your personal Calcoolator preferences">Preferences</a> |
+    </td>
+    <tr height="3"><td></td></tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0"><tr valign="top"><td width="90%">
+    <!-- Start main area -->
+
+    <h1>Unit Conversions</h1>
+
+    <table border="0" cellpadding="2" cellspacing="1">
+        <tr>
+            <td id="cat_all" class="catb_active" onclick="setCategory('all');return false;"><a href="#" class="catbtn">All<br />categories</a></td>
+            <td id="cat_distance" class="catb" onclick="setCategory('distance');return false;"><a href="#" class="catbtn">Distance &amp;<br />Length</td>
+            <td id="cat_speed" class="catb" onclick="setCategory('speed');return false;"><a href="#" class="catbtn">Speed</a></td>
+            <td id="cat_temperature" class="catb" onclick="setCategory('temperature');return false;"><a href="#" class="catbtn">Temperature</a></td>
+            <td id="cat_weight" class="catb" onclick="setCategory('weight');return false;"><a href="#" class="catbtn">Weight</a></td>
+            <td id="cat_volume" class="catb" onclick="setCategory('volume');return false;"><a href="#" class="catbtn">Volume</a></td>
+            <td id="cat_area" class="catb" onclick="setCategory('area');return false;"><a href="#" class="catbtn">Area</a></td>
+            <td id="cat_currency" class="catb" onclick="setCategory('currency');return false;"><a href="#" class="catbtn">Currency<br />(Money)</a></td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <table border="0" cellpadding="2" cellspacing="0">
+        <tr>
+            <td class="tip">amount</td>
+            <td class="tip">units (e.g. feet)</td>
+            <td></td>
+            <td class="tip">units (e.g. meter)</td>
+        </tr>
+        <tr>
+            <td><input type="text" size="9" id="amount"  onchange="compute()" /></td>
+            <td><input type="text" size="20" id="fromUnits" onkeydown="acFrom.onkeydown(event)" onkeyup="acFrom.onkeyup(event)" onfocus="this.select();acFrom.open()" onblur="acFrom.close()" onchange="fromset()" /></td>
+            <td>to</td>
+            <td><input type="text" size="20" id="toUnits" onkeydown="acTo.onkeydown(event)" onkeyup="acTo.onkeyup(event)" onfocus="this.select();fromset();acTo.open()" onblur="acTo.close()" onchange="compute()" /></td>
+            <td>&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="#" onclick="swapFromTo();return false;">Swap from/to units</a>
+        </tr>
+        <tr height="5"><td></td></tr>
+    </table>
+
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr valign="top">
+            <td height="40"><img src="img/s.png" width="1" height="40" /></td>
+            <td id='result'>&nbsp;</td>
+        </tr>
+    </table>
+
+    <br />
+    <div id="log"><span class='logtitle'>History</span><br />
+        <i>All your previous conversions will be displayed here</i></div>
+
+
+
+
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <!-- End main area -->
+</td></tr></table>
+
+
+<table border="0" cellpadding="2" cellspacing="0" width="100%" id="footer">
+    <tr align="center">
+        <td class="footer">
+            <a href="index.html">Calculate</a> |
+            <a href="convert.html">Convert</a> |
+            <a href="about.html">About us</a> |
+            <a href="contact.html">Contact us</a> |
+            <a href="download.html">Download</a> |
+            <a href="preferences.html">Preferences</a>
+        </td>
+    </tr>
+    <tr align="center">
+        <td class="footer">
+            Copyright &copy; 2007. All rights reserverd.
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
